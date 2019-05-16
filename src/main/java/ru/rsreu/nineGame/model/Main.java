@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ISolver solver = new GradientSolver();
+//        ISolver solver = new GradientSolver();
+        ISolver solver = new BranchBoundStrategySolver();
 //        ISolver solver = new DepthSolver();
 //        ISolver solver = new WidthSolver();
 //        ISolver solver = new PartialBestPathSolver();
