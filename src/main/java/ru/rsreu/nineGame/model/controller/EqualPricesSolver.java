@@ -16,21 +16,6 @@ import java.util.Map;
 public class EqualPricesSolver implements ISolver {
     private int counter;
 
-//    /**
-//     * Lля каждой ситуации будем хранить ситуацию, номер и путь (список номеров)
-//     */
-//    private class EstimatedSituation {
-//        Integer id;
-//        State state;
-//        List<Integer> route;
-//
-//        EstimatedSituation(State state, List<Integer> route) {
-//            this.id = counter + 1;
-//            counter ++;
-//            this.state = state;
-//            this.route = route;
-//        }
-//    }
 
     @Override
     public List<State> solve(State start, State target, int stepsCount) {

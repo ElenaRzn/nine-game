@@ -49,21 +49,4 @@ public class BranchBoundStrategySolver implements ISolver {
         checkCouldSolve(route, stepsCount);
         return buildPath(route);
     }
-
-//    /**
-//     * Поиск ситуации с минимальным суммарным путем и удаление из очереди.
-//     * @param queue - оцередь ситуаций
-//     * @return ситуация с миимальной оценкой суммарного пути
-//     */
-//    private EstimatedSituation getMin(LinkedList<EstimatedSituation> queue) {
-//        EstimatedSituation min = queue.get(0);
-//        for (EstimatedSituation estimatedSituation : queue) {
-//            if(min.getMark() > estimatedSituation.getMark()) {
-//                min = estimatedSituation;
-//            }
-//        }
-//        //удаление из очереди
-//        queue.remove(min);
-//        return min;
-//    }
 }

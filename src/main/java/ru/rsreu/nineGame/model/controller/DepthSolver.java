@@ -31,22 +31,7 @@ public class DepthSolver implements ISolver {
             }
         }
 
-//        if(!route.containsKey(target)) {
-//            System.out.println(stack.getLast().toString());
-//            throw new RuntimeException("Could not solve in " + stepsCount + " steps");
-//        }
         checkCouldSolve(route, stepsCount);
-
-
-//        List<State> result = new ArrayList<>();
-//
-//        while (target != null) {
-//            result.add(target);
-//            target = route.get(target);
-//        }
-//
-//        Collections.reverse(result);
-//        return result;
         return buildPath(route);
     }
 
