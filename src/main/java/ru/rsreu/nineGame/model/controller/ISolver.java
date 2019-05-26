@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ISolver {
-    int STEPS_COUNT = 50;
+    int STEPS_COUNT = 1000000;
 
     State TARGET = new State(State.TARGET);
 
@@ -36,4 +36,6 @@ public interface ISolver {
         Collections.reverse(result);
         return result;
     }
+
+    int getN();
 }

@@ -17,6 +17,7 @@ public class GradientSolver extends   DepthSolver {
     @Override
     protected State getBestNextState(State current) {
         List<State> possible = current.getPossible();
+        N += possible.size();
         Map<State, Integer> map = new HashMap<>();
         for (State state: possible) {
             map.put(state, function.estimate(state));

@@ -14,6 +14,15 @@ import java.util.*;
  */
 public class PartialBestPathSolver implements ISolver{
 
+    /** глубина поиска. */
+    private int D;
+
+    /** длина пути решения.*/
+    private int L;
+
+    /** общее число порожденных вершин. */
+    private int N;
+
     private IEstimatedFunction function = new LevenstainFunction();
 
     private static final int TREE_LEVEL_DEPTH = 3;
@@ -27,11 +36,15 @@ public class PartialBestPathSolver implements ISolver{
         // полный путь, из которого будем составлять решений.
         Map<State, State> totalRoot = new HashMap<>();
         totalRoot.put(start, null);
+        D ++;
+
         State current = start;
 
         int step = 0;
         // пока есть шаги или  не нашли целевую ситуацию
-        while(step<stepsCount) {
+//        while(step<stepsCount) {
+        while(true) {
+            System.out.println(step);
             // строим дерево
             Map<State, State> tree = generateTree(current, TARGET);
 
@@ -42,6 +55,7 @@ public class PartialBestPathSolver implements ISolver{
 
             if(!totalRoot.containsKey(state)) {
                 totalRoot.put(state, current);
+                D ++;
             }
 
             step++;
@@ -55,7 +69,14 @@ public class PartialBestPathSolver implements ISolver{
 
         // проверка - нашли ли.
         checkCouldSolve(totalRoot, stepsCount);
-        return buildPath(totalRoot);
+        List<State> result = buildPath(totalRoot);
+        L = result.size();
+
+        System.out.println("Глубина поиска D = " + step);
+        System.out.println("Длина пути решения L = " + L);
+        System.out.println("Общее число порожденных вершин N = " + N);
+        System.out.println("M = " + D );
+        return result;
     }
 
     private Map<State, Integer> estimate(Map<State, State> map) {
@@ -90,6 +111,7 @@ public class PartialBestPathSolver implements ISolver{
         while(step<TREE_LEVEL_DEPTH) {
             State current = queue.removeLast();
             List<State> possible = current.getPossible();
+            N += possible.size();
 
             for (State state: possible) {
                 if(!route.containsKey(state)) {
@@ -107,5 +129,10 @@ public class PartialBestPathSolver implements ISolver{
         }
 
         return route;
+    }
+
+    @Override
+    public int getN() {
+        return N;
     }
 }

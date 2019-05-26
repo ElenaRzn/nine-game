@@ -14,6 +14,15 @@ import java.util.*;
  */
 public class BranchBoundStrategySolver implements ISolver {
 
+    /** глубина поиска. */
+    private int D;
+
+    /** длина пути решения.*/
+    private int L;
+
+    /** общее число порожденных вершин. */
+    private int N;
+
     private IEstimatedFunction function = new LevenstainFunction();
 
     @Override
@@ -21,6 +30,8 @@ public class BranchBoundStrategySolver implements ISolver {
         LinkedList<EstimatedSituation> queue = new LinkedList<>();
         Map<State, State> route = new HashMap<>();
         queue.push(new EstimatedSituation(start, function.estimate(start)));
+        D ++;
+
         route.put(start, null);
 
         int step = 0;
@@ -29,12 +40,14 @@ public class BranchBoundStrategySolver implements ISolver {
             //найти с минимальной оценкой - она будет новый current
             EstimatedSituation current = EstimatedSituation.getMin(queue);
             List<State> possible = current.getState().getPossible();
+            N+= possible.size();
 
             // оцениваем, кладем в очередь
             for (State state: possible) {
                 if(!route.containsKey(state)) {
                     route.put(state, current.getState());
                     queue.push(new EstimatedSituation(state, function.estimate(state) + current.getMark()));
+                    D ++;
                 }
             }
             step++;
@@ -47,6 +60,18 @@ public class BranchBoundStrategySolver implements ISolver {
         }
 
         checkCouldSolve(route, stepsCount);
-        return buildPath(route);
+        List<State> result = buildPath(route);
+        L = result.size();
+
+        System.out.println("Глубина поиска D = " + step);
+        System.out.println("Длина пути решения L = " + L);
+        System.out.println("Общее число порожденных вершин N = " + N);
+        System.out.println("M = " + D );
+        return result;
+    }
+
+    @Override
+    public int getN() {
+        return N;
     }
 }
